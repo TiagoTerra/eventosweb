@@ -1,0 +1,328 @@
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    /* border: 1px solid #ccc; */
+    background-color :#87CEFA;
+    background: linear-gradient(to right, rgba(135,206,250,0.7) 0%, rgba(135,206,250,1) 20%, rgba(135,206,250,1) 80%, rgba(135,206,250,0.7) 100%);
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color:  #74befa;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #74befa;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    /* border: 1px solid #ccc; */
+    border-top: none;
+  }
+  .tabcontent {
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+  }
+  
+  /* Go from zero to full opacity */
+  @keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+
+/* ALERTA */
+  .alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-btn {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .close-btn:hover {
+    color: red;
+  }
+
+
+.linhaSubtitulo{
+  height: 2px;
+  background: linear-gradient(to right, rgba(135,206,250,0.7) 0%, rgba(135,206,250,1) 20%, rgba(135,206,250,1) 80%, rgba(135,206,250,0.7) 100%);
+  border: none; 
+  margin: 10px 18px; 
+}
+
+/*-------------------------------------------------------------------------
+ ACCORDION
+-------------------------------------------------------------------------*/
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color :rgb(62, 175, 245);
+  background: linear-gradient(to right, rgba(62,175,245,0.7) 100%, rgba(62,175,245,1) 80%, rgba(62,175,245,1) 20%, rgba(62,175,245,0.7) 0%);
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  margin-bottom: 1%;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+
+
+/* Próximo de boostrap */
+ /* Reset de estilos */
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos do formulário */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 2%;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  margin-top: 1%;
+}
+
+.form-group-button {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 1%;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+input[type="text"],input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input[type="email"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input:hover{
+  box-shadow: 0 0 10px rgb(245, 245, 245), 0 0 10px rgba(4, 166, 247, 0.968);
+  outline: none; 
+  border-color: transparent;
+}
+
+input:focus{
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(4, 166, 247, 0.968) 0 0 10px rgba(0, 123, 255, 0.6); 
+  outline: none; 
+}
+
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path fill="%23333" d="M6 0L0 6h12z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 8px 6px;
+  padding-right: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.salvar{
+  background-color: rgb(47, 255, 57);
+}
+
+.btnnovoevento{
+  background-color: orange;
+}
+
+.salvar:hover{
+  background-color: rgb(109, 255, 47);
+}
+
+/*-------------------------------------------------------------------------
+ Region Grid 
+-------------------------------------------------------------------------*/
+.grid-container {
+  width: 100%;
+  /* max-width: 1140px; */
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Estilo para a tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+/* Estilo para os cabeçalhos */
+th {
+  background-color: #138fed;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Estilo para as células de dados */
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+/* Exemplo de estilo para linhas alternadas */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* .editar{
+  border:1px;
+} */
+
+.idHidden{
+  border: 1px;
+}
+
+.checkboxgrid-container {
+  display: grid;
+  grid-template-columns: auto auto; /* Define duas colunas */
+  gap: 10px; /* Define o espaço entre os itens */
+}
+
+.checkboxgrid-item {
+  display: flex; /* Permite que os itens da grade sejam alinhados horizontalmente */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+}
+
+.gridCentrosDeParticipantes-container{
+  padding-left: 5%;
+  padding-right: 10%;
+}
+
+.gridCentrosDeInteresseDoParticipante-container{
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+/* Estilos para a modal */
+.modal {
+  display: none; /* Inicia oculta */
+  position: fixed; /* Posição fixa em relação à janela do navegador */
+  z-index: 1; /* Define a ordem de empilhamento */
+  left: 0;
+  top: 0;
+  width: 100%; /* Cobertura total da largura */
+  height: 100%; /* Cobertura total da altura */
+  overflow: auto; /* Adiciona rolagem caso a modal seja maior que a tela */
+  background-color: rgba(0,0,0,0.4); /* Fundo semi-transparente */
+  
+}
+
+/* Estilos para o conteúdo da modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Centraliza verticalmente */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Largura da modal */
+  border-radius: 10px;
+}
+
+/* Estilos para o botão de fechar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.extra-content {
+  display: none; /* Inicia oculto */
+  padding: 10px;
+  background-color: #f9f9f9;
+}
