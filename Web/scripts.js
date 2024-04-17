@@ -26,10 +26,8 @@ function obtemEventoIdSelecionado(value) {
 }
 function openTab(evt, nomeTab) {
 
-  // Declare all variables
   var i, tabcontent, tablinks;
 
-  // Get all elements with class="tabcontent" and hide them
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -253,17 +251,13 @@ const putEvento = async (id, inputNome, inputInicio, inputTermino) => {
     });
 }
 function configurarAccordion() {
-  // Inicia configurações do Accordion
   var acc = document.getElementsByClassName("accordion");
   var i;
 
   for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
-      /* Toggle between adding and removing the "active" class,
-      to highlight the button that controls the panel */
       this.classList.toggle("active");
 
-      /* Toggle between hiding and showing the active panel */
       var panel = this.nextElementSibling;
       if (panel.style.display === "block") {
         panel.style.display = "none";
@@ -272,7 +266,6 @@ function configurarAccordion() {
       }
     });
   }
-  // Finaliza configurações do Accordion
 }
 function excluirEvento(id) {
   const formData = new FormData();
@@ -661,11 +654,6 @@ const insertListParticipante = (id, nome, email, inscricao) => {
       cel.textContent = item[i];
     }
   }
-  // row.innerHTML = `
-  // <td class="extra-content">
-  //     Conteúdo extra da linha ${i + 1}
-  // </td>`;
-  // addExpandButtonToRow(row);
 }
 
 function addExpandButtonToRow(row) {
@@ -678,33 +666,14 @@ function addExpandButtonToRow(row) {
 }
 
 function expandRow(row) {
-  // Encontra o elemento de conteúdo extra da linha
   const extraContent = row.querySelector('.extra-content');
-  
-  // Alterna a visibilidade do conteúdo extra
+
   if (extraContent.style.display === 'none') {
       extraContent.style.display = 'table-row';
   } else {
       extraContent.style.display = 'none';
   }
 }
-// function addModalButtonToRow() {
-//   return criarControleCentrosDoParticipante();
-// const button = criarControleCentrosDoParticipante();
-// button.innerText = 'Abrir Modal';
-// button.addEventListener('click', function () {
-//   let url = 'http://localhost:5000/participante/centrosdeinteresse?id=' + id;
-//   fetch(url, {
-//     method: 'get',
-//   })
-//     .then(data => {
-//       fillModal(data);
-//       openModal();
-//     })
-//     .catch(error => console.error('Erro ao obter dados da API:', error));
-// });
-// return button;
-// }
 
 const getListCentrosDeInteressePorParticipante = async () => {
   let url = 'http:/localhost:5000/centrodeinteresse?eventoId=' + obtemEventoIdSelecionado();
@@ -998,25 +967,20 @@ function configuraMetodoDeAbrirModal(nomeTabela) {
 /* ----------------------------------------------------------------------------------- */
 /* #region Modal
 /* ----------------------------------------------------------------------------------- */
-
-// Função para criar a modal
 function openModal() {
   const modal = document.getElementById('myModal');
   modal.style.display = 'block';
 }
 
-// Função para fechar a modal
 function closeModal() {
   const modal = document.getElementById('myModal');
   modal.style.display = 'none';
 }
 
-// Evento de clique no botão fechar da modal
 document.getElementsByClassName('close')[0].addEventListener('click', function () {
   closeModal();
 });
 
-// Evento de clique fora da modal para fechá-la
 window.addEventListener('click', function (event) {
   const modal = document.getElementById('myModal');
   if (event.target == modal) {
