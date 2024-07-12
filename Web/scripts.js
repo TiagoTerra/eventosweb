@@ -6,11 +6,26 @@
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("btnEventos").click();
 
+  verificaAutenticacao();
+
   habilitarTabsComplementares(false);
   configurarAccordion();
   consultarEventos();
-
 });
+
+/*
+--------------------------------------------------------------------------------------
+#region Autenticação e Segurança
+--------------------------------------------------------------------------------------
+*/
+function verificaAutenticacao() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    // Redirecionar para a página de login se o token não estiver presente
+    window.location.href = 'login.html';
+  }
+}
+
 /*
 --------------------------------------------------------------------------------------
 #region Controle de Abas
@@ -66,9 +81,12 @@ function consultarEventos() {
 
   limparGrid('grid');
 
-  let url = 'http://localhost:5000/evento';
+  let url = 'http://localhost:5001/evento';
   fetch(url, {
     method: 'get',
+    headers: {
+      'Authorization': localStorage.getItem('token')
+    },
   })
     .then((response) => response.json())
     .then((data) => {
@@ -92,7 +110,7 @@ const insertListEvento = (id, nome, data_inicio) => {
 
     var cel = row.insertCell(i);
 
-    if (i == 1 || i == 1){
+    if (i == 1 || i == 1) {
       cel.textContent = TrataData(item[i]);
       cel.style.textAlign = "center";
     }
@@ -154,7 +172,7 @@ function editarEvento(eventoId) {
 }
 function carregaDadosDoEvento(eventoId) {
 
-  let url = 'http:/localhost:5000/eventoporid?id=' + eventoId;
+  let url = 'http:/localhost:5001/eventoporid?id=' + eventoId;
   fetch(url, {
     method: 'get',
   })
@@ -218,7 +236,7 @@ const postEvento = async (inputNome, inputInicio, inputTermino) => {
   formData.append('data_inicio', inputInicio);
   formData.append('data_fim', inputTermino);
 
-  let url = 'http://localhost:5000/evento';
+  let url = 'http://localhost:5001/evento';
   fetch(url, {
     method: 'post',
     body: formData
@@ -233,13 +251,13 @@ const postEvento = async (inputNome, inputInicio, inputTermino) => {
     });
 }
 const putEvento = async (id, inputNome, inputInicio, inputTermino) => {
-  const formData = new FormData();
+  const formData = new FormData();fe
   formData.append('id', id);
   formData.append('nome', inputNome);
   formData.append('data_inicio', inputInicio);
   formData.append('data_fim', inputTermino);
 
-  let url = 'http://localhost:5000/atualizarevento';
+  let url = 'http://localhost:5001/atualizarevento';
   fetch(url, {
     method: 'post',
     body: formData
@@ -271,7 +289,7 @@ function excluirEvento(id) {
   const formData = new FormData();
   formData.append('id', id);
 
-  let url = 'http://localhost:5000/evento';
+  let url = 'http://localhost:5001/evento';
   fetch(url, {
     method: 'delete',
     body: formData
@@ -315,7 +333,7 @@ const postResponsavel = async (inputResponsavel, inputMatricula, inputEmail) => 
   formData.append('email', inputEmail);
   formData.append('eventoId', obtemEventoIdSelecionado());
 
-  let url = 'http:/localhost:5000/responsavel?eventoid=' + obtemEventoIdSelecionado();
+  let url = 'http:/localhost:5001/responsavel?eventoid=' + obtemEventoIdSelecionado();
   fetch(url, {
     method: 'post',
     body: formData
@@ -341,7 +359,7 @@ function getListResponsavel() {
 
   limparGrid('tableResponsavel');
 
-  let url = 'http:/localhost:5000/responsavel?eventoid=' + obtemEventoIdSelecionado();
+  let url = 'http:/localhost:5001/responsavel?eventoid=' + obtemEventoIdSelecionado();
   fetch(url, {
     method: 'get',
   })
@@ -379,7 +397,7 @@ function excluirResponsavel(id) {
   const formData = new FormData();
   formData.append('id', id);
 
-  let url = 'http://localhost:5000/responsavel';
+  let url = 'http://localhost:5001/responsavel';
   fetch(url, {
     method: 'delete',
     body: formData
@@ -427,7 +445,7 @@ const bindComboSalas = (data) => {
   });
 }
 const getListSalas = async () => {
-  let url = 'http:/localhost:5000/sala';
+  let url = 'http:/localhost:5001/sala';
   fetch(url, {
     method: 'get',
   })
@@ -472,7 +490,7 @@ const postCentroDeInteresse = async (inputTema, inputComboResponsavel, inputSala
   formData.append('responsavelId', inputComboResponsavel);
   formData.append('salaId', inputSala);
 
-  let url = 'http://localhost:5000/centrodeinteresse';
+  let url = 'http://localhost:5001/centrodeinteresse';
   fetch(url, {
     method: 'post',
     body: formData
@@ -496,7 +514,7 @@ const getListCentroDeInteresse = async () => {
 
   limparGrid('tableCentrosDeInteresse');
 
-  let url = 'http:/localhost:5000/centrodeinteresse?eventoId=' + obtemEventoIdSelecionado();
+  let url = 'http:/localhost:5001/centrodeinteresse?eventoId=' + obtemEventoIdSelecionado();
   fetch(url, {
     method: 'get',
   })
@@ -533,7 +551,7 @@ function excluirCentrosDeInteresse(id) {
   const formData = new FormData();
   formData.append('id', id);
 
-  let url = 'http://localhost:5000/centrodeinteresse';
+  let url = 'http://localhost:5001/centrodeinteresse';
   fetch(url, {
     method: 'delete',
     body: formData
@@ -589,12 +607,20 @@ const postParticipante = async (inputParticipante, inputMatricula, inputInscrica
   formData.append('inscricao', inputInscricao);
   formData.append('idevento', obtemEventoIdSelecionado());
 
+  formData.append('cep', document.getElementById('cep').value);
+  formData.append('logradouro', document.getElementById('logradouro').value);
+  formData.append('numero', document.getElementById('numero').value);
+  formData.append('complemento', document.getElementById('complemento').value);
+  formData.append('bairro', document.getElementById('bairro').value);
+  formData.append('localidade', document.getElementById('localidade').value);
+  formData.append('uf', document.getElementById('uf').value);
+
   var centrosdeinteresse = getSelectedItems();
   centrosdeinteresse.forEach(centrodeinteresse => {
     formData.append(`centrosdeinteresse`, centrodeinteresse);
   });
 
-  let url = 'http://localhost:5000/participante';
+  let url = 'http://localhost:5001/participante';
   fetch(url, {
     method: 'post',
     body: formData
@@ -618,14 +644,14 @@ const postParticipante = async (inputParticipante, inputMatricula, inputInscrica
 }
 
 const getListParticipante = async () => {
-  let url = 'http:/localhost:5000/participante?eventoId=' + obtemEventoIdSelecionado()
+  let url = 'http:/localhost:5001/participante?eventoId=' + obtemEventoIdSelecionado()
   fetch(url, {
     method: 'get',
   })
     .then((response) => response.json())
     .then((data) => {
       data.participantes.forEach(item => insertListParticipante(
-        item.id, item.nome, item.email, item.inscricao))
+        item.id, item.nome, item.email, item.inscricao, item.uf))
       configuraMetodoDeExclusao('tableParticipante');
       configuraMetodoDeAbrirModal('tableParticipante');
     })
@@ -633,9 +659,9 @@ const getListParticipante = async () => {
       console.error('Error:', error);
     });
 }
-const insertListParticipante = (id, nome, email, inscricao) => {
+const insertListParticipante = (id, nome, email, inscricao, uf) => {
 
-  var item = [nome, email, inscricao, id]
+  var item = [nome, email, inscricao, uf, id]
   var table = document.getElementById('tableParticipante');
   var row = table.insertRow();
 
@@ -643,7 +669,7 @@ const insertListParticipante = (id, nome, email, inscricao) => {
     var cel = row.insertCell(i);
     if (i == item.length - 1) {
       cel.appendChild(criarControleDeExclusao('tableParticipante'));
-      cel.appendChild(criaControleHidden('tableParticipante', item[3]));
+      cel.appendChild(criaControleHidden('tableParticipante', item[4]));
       cel.style.textAlign = "center";
     }
     else if (i == item.length) {
@@ -669,14 +695,14 @@ function expandRow(row) {
   const extraContent = row.querySelector('.extra-content');
 
   if (extraContent.style.display === 'none') {
-      extraContent.style.display = 'table-row';
+    extraContent.style.display = 'table-row';
   } else {
-      extraContent.style.display = 'none';
+    extraContent.style.display = 'none';
   }
 }
 
 const getListCentrosDeInteressePorParticipante = async () => {
-  let url = 'http:/localhost:5000/centrodeinteresse?eventoId=' + obtemEventoIdSelecionado();
+  let url = 'http:/localhost:5001/centrodeinteresse?eventoId=' + obtemEventoIdSelecionado();
   fetch(url, {
     method: 'get',
   })
@@ -787,7 +813,7 @@ function excluirParticipante(id) {
   const formData = new FormData();
   formData.append('id', id);
 
-  let url = 'http://localhost:5000/participante';
+  let url = 'http://localhost:5001/participante';
   fetch(url, {
     method: 'delete',
     body: formData
@@ -811,12 +837,44 @@ function limparDadosParticipantes() {
   document.getElementById("newNomeParticipante").value = null;
   document.getElementById("newEmailParticipante").value = null;
   document.getElementById("newInscricao").value = null;
+
+  document.getElementById('cep').value = null;
+  document.getElementById('logradouro').value = null;
+  document.getElementById('numero').value = null;
+  document.getElementById('complemento').value = null;
+  document.getElementById('bairro').value = null;
+  document.getElementById('localidade').value = null;
+  document.getElementById('uf').value = null;
+
 }
 function limparParticipantes() {
   limparDadosParticipantes();
   var divCentrosDoParticipante = document.getElementById("gridCentrosDeParticipantes");
   divCentrosDoParticipante.innerHTML = '';
   limparGrid('tableParticipante');
+}
+
+function buscarCEP() {
+  const cep = document.getElementById('cep').value;
+  const url = `https://viacep.com.br/ws/${cep}/json/`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.erro) {
+        document.getElementById('resultado').innerText = 'CEP não encontrado!';
+      } else {
+        document.getElementById('logradouro').value = data.logradouro;
+        document.getElementById('bairro').value = data.bairro;
+        document.getElementById('localidade').value = data.localidade;
+        document.getElementById('uf').value = data.uf;
+
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao buscar o CEP:', error);
+      document.getElementById('resultado').innerText = 'Erro ao buscar o CEP!';
+    });
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -950,7 +1008,7 @@ function configuraMetodoDeAbrirModal(nomeTabela) {
   botesEditar.forEach(function (botao) {
     botao.addEventListener('click', function () {
       var id = this.parentNode.parentNode.querySelector('.idHidden_' + nomeTabela).value;
-      let url = 'http://localhost:5000/participante/centrosdeinteresse?eventoId=' + id;
+      let url = 'http://localhost:5001/participante/centrosdeinteresse?eventoId=' + id;
       fetch(url, {
         method: 'get',
       })

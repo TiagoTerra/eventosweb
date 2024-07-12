@@ -164,6 +164,29 @@
             <div class="form-group">
               <input type="text" id="newInscricao" placeholder="Incrição" />
             </div>
+            <div class="form-group">
+              <input type="text" id="cep" placeholder="Digite o CEP">
+              <button onclick="buscarCEP()">Buscar</button>
+              <div id="resultado"></div>
+            </div>
+            <div class="form-group" >
+              <input type="text" id="logradouro" readonly="true"/>
+            </div>
+            <div class="form-group" >
+              <input type="text" id="numero"/>
+            </div>
+            <div class="form-group" >
+              <input type="text" id="complemento" />
+            </div>
+            <div class="form-group" >
+              <input type="text" id="bairro" readonly="true"/>
+            </div>
+            <div class="form-group" >
+              <input type="text" id="localidade" readonly="true"/>
+            </div>
+            <div class="form-group" >
+              <input type="text" id="uf" readonly="true"/>
+            </div>
 
             <h4 style="margin-left: 2%">Centros de Interesse disponíveis:</h4>
             <hr class="linhaSubtitulo" />
@@ -186,8 +209,9 @@
               <th>Nome</th>
               <th>Email</th>
               <th>Inscrição</th>
+              <th>UF</th>
               <th>Excluir</th>
-              <th>Inscrição</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
